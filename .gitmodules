@@ -1,0 +1,21 @@
+[submodule "subprojects/Stick"]
+	path = subprojects/Stick
+	url = https://github.com/mokafolio/Stick.git
+[submodule "subprojects/Crunch"]
+	path = subprojects/Crunch
+	url = https://github.com/mokafolio/Crunch.git
+[submodule "subprojects/Luke"]
+	path = subprojects/Luke
+	url = https://github.com/mokafolio/Luke.git
+[submodule "subprojects/Paper2"]
+	path = subprojects/Paper2
+	url = https://github.com/mokafolio/Paper2.git
+[submodule "subprojects/CrunchLuaSol"]
+	path = subprojects/CrunchLuaSol
+	url = https://github.com/mokafolio/CrunchLuaSol.git
+[submodule "subprojects/LukeLuaSol"]
+	path = subprojects/LukeLuaSol
+	url = https://github.com/mokafolio/LukeLuaSol.git
+[submodule "subprojects/PaperLuaSol"]
+	path = subprojects/PaperLuaSol
+	url = https://github.com/mokafolio/PaperLuaSol.git
