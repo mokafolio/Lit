@@ -1,7 +1,8 @@
 #ifndef LIT_LIT_HPP
 #define LIT_LIT_HPP
 
-#include <Stick/Platform.hpp>
+#include <sol/sol.hpp>
+#include <Stick/String.hpp>
 
 namespace lit
 {
