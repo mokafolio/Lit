@@ -14,6 +14,7 @@ namespace lit
 {
 
 using namespace stick;
+using namespace crunch;
 
 namespace pls = paperLuaSol;
 namespace lls = lukeLuaSol;
@@ -39,6 +40,11 @@ static Error saveFrame(const char * _name, UInt32 _x, UInt32 _y, UInt32 _w, UInt
     return Error();
 }
 
+static Error saveFrameWithSize(const char * _name, const Vec2f & _size)
+{
+    return saveFrame(_name, 0, 0, (UInt32)_size.x, (UInt32)_size.y);
+}
+
 void registerLit(sol::state_view & _lua, const String & _namespace)
 {
     stbi_flip_vertically_on_write(1);
@@ -56,7 +62,10 @@ void registerLit(sol::state_view & _lua, const String & _namespace)
     pls::registerPaper(_lua, _namespace);
 
     tbl.set_function("clearWindow", clearWindow);
-    tbl.set_function("saveFrame", saveFrame);
+    tbl.set_function("saveFrame", sol::overload(
+        saveFrame,
+        saveFrameWithSize
+        ));
 }
 
 } // namespace lit
