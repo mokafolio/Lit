@@ -20,6 +20,7 @@ litSrc = [
 
 incDirs = include_directories(
     '.', 
+    'Lit/Libs',
     'subprojects/Crunch', 
     'subprojects/CrunchLuaSol', 
     'subprojects/Luke',
@@ -37,3 +38,11 @@ litDeps = [
 ]
 
 lit = shared_library('Lit', litSrc, dependencies: litDeps, include_directories : incDirs, install: true)
+
+litDep = declare_dependency(link_with : lit, 
+    dependencies: litDeps, 
+    include_directories: incDirs)
+
+litClient = executable('lit', sources: 'Lit/LitClient.cpp', dependencies: litDep)
+
+#@TODO: install the lua files that are part of lit
