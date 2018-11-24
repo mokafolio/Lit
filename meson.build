@@ -1,5 +1,12 @@
 project('Lit', 'cpp', default_options : ['cpp_std=c++14'])
 
+#check if the build is initiated through luarocks
+bLuaRocks = get_option('lr_install_lib_dir') != '' and get_option('lr_install_lua_dir') != ''
+
+if bLuaRocks
+    message('Building through luarocks')
+endif
+
 #remove this rather bogus warning
 add_global_arguments('-Wno-missing-braces', language: 'cpp')
 
@@ -37,12 +44,27 @@ litDeps = [
     dependency('lua', version: '>=5.3')
 ]
 
-lit = shared_library('Lit', litSrc, dependencies: litDeps, include_directories : incDirs, install: true)
+# empty array will trigger platform default
+nameSuffix = []
+namePrefix = []
+installDir = []
+if host_machine.system() == 'darwin' and bLuaRocks
+    nameSuffix = 'so'
+    namePrefix = ''
+    installDir = get_option('lr_install_lib_dir')
+endif
+
+lit = shared_library('Lit', 
+    litSrc, 
+    dependencies: litDeps, 
+    include_directories : incDirs,
+    name_prefix: namePrefix, 
+    name_suffix: nameSuffix,
+    install_dir: installDir,
+    install: true)
 
 litDep = declare_dependency(link_with : lit, 
     dependencies: litDeps, 
     include_directories: incDirs)
-
-litClient = executable('lit', sources: 'Lit/LitClient.cpp', dependencies: litDep)
 
 #@TODO: install the lua files that are part of lit

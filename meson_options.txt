@@ -1,0 +1,3 @@
+#these are only for luarocks to set certain things
+option('lr_install_lib_dir', type : 'string')
+option('lr_install_lua_dir', type : 'string')

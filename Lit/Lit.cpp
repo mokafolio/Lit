@@ -45,27 +45,33 @@ static Error saveFrameWithSize(const char * _name, const Vec2f & _size)
     return saveFrame(_name, 0, 0, (UInt32)_size.x, (UInt32)_size.y);
 }
 
-void registerLit(sol::state_view & _lua, const String & _namespace)
+void registerLit(sol::state_view _lua, sol::table _table)
 {
     stbi_flip_vertically_on_write(1);
 
-    sol::table tbl = _lua.globals();
-    if (!_namespace.isEmpty())
-    {
-        auto tokens = path::segments(_namespace, '.');
-        for (const String & token : tokens)
-            tbl = tbl[token.cString()] = tbl.get_or(token.cString(), _lua.create_table());
-    }
+    lls::registerLuke(_lua, _table);
+    cls::registerCrunch(_lua, _table);
+    pls::registerPaper(_lua, _table);
 
-    lls::registerLuke(_lua, _namespace);
-    cls::registerCrunch(_lua, _namespace);
-    pls::registerPaper(_lua, _namespace);
+    _table.set_function("clearWindow", clearWindow);
+    _table.set_function("saveFrame", sol::overload(saveFrame, saveFrameWithSize));
+}
 
-    tbl.set_function("clearWindow", clearWindow);
-    tbl.set_function("saveFrame", sol::overload(
-        saveFrame,
-        saveFrameWithSize
-        ));
+void registerLit(sol::state_view _lua, const String & _namespace)
+{
+    registerLit(_lua, cls::ensureNamespaceTable(_lua, _lua.globals(), _namespace));
 }
 
 } // namespace lit
+
+extern "C" {
+
+int luaopen_Lit(lua_State * L)
+{
+    sol::state_view sv(L);
+    sol::table tbl = sv.create_table();
+    lit::registerLit(sv, tbl);
+    tbl.push();
+    return 1;
+}
+}
