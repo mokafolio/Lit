@@ -1,5 +1,6 @@
 package = "Lit"
 version = "0.0.1-3"
+rockspec_format = "3.0"
 source = {
    url = "git://github.com/mokafolio/Lit"
 }
