@@ -63,7 +63,7 @@ if bLuaRocks
         namePrefix = ''
     endif
     installDir = get_option('lr_install_lib_dir')
-    luaInstallDir = get_option('lr_install_lua_dir')
+    luaInstallDir = join_paths(get_option('lr_install_lua_dir'), 'Lit')
 
     lit = shared_library('Lit', 
         litSrc, 
