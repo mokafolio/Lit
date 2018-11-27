@@ -1,5 +1,5 @@
-local tbl = require("Utilities.TableUtil")
-local mth = require("Utilities.MathUtil")
+local tbl = require("Lit.Utilities.TableUtil")
+local mth = require("Lit.Utilities.MathUtil")
 local util = {}
 
 util.applyNoise = function(_path, _noiseSeed, _noiseDiv, _noiseScale, _sampleDist)
