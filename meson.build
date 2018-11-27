@@ -44,27 +44,46 @@ litDeps = [
     dependency('lua', version: '>=5.3')
 ]
 
-# empty array will trigger platform default
-nameSuffix = []
-namePrefix = []
-installDir = []
-if host_machine.system() == 'darwin' and bLuaRocks
-    nameSuffix = 'so'
-    namePrefix = ''
-    installDir = get_option('lr_install_lib_dir')
-endif
+luaInstallDir = 'LuaScripts'
 
-lit = shared_library('Lit', 
-    litSrc, 
-    dependencies: litDeps, 
-    include_directories : incDirs,
-    name_prefix: namePrefix, 
-    name_suffix: nameSuffix,
-    install_dir: installDir,
-    install: true)
+# meson does not provide a good mechanism to pick default arguments for now
+# so this is somewhat of a clumsy if else mess to invoke shared_library with
+# the correct parameters.
+if bLuaRocks
+        
+    #empty arry triggers default...
+    nameSuffix = []
+    namePrefix = 'lib' #for windows this will most likely have to be different
+    # lets hope meson provides a better way for defaults once we get to that!!!!
+    # I.e. this: https://github.com/mesonbuild/meson/pull/3820
+
+    #conform to the expected lua shared lib naming conventions
+    if host_machine.system() == 'darwin' and 
+        nameSuffix = 'so'
+        namePrefix = ''
+    endif
+    installDir = get_option('lr_install_lib_dir')
+    luaInstallDir = get_option('lr_install_lua_dir')
+
+    lit = shared_library('Lit', 
+        litSrc, 
+        dependencies: litDeps, 
+        include_directories : incDirs,
+        name_prefix: namePrefix, 
+        name_suffix: nameSuffix,
+        install_dir: installDir,
+        install: true)
+    install_subdir('LuaScripts', install_dir : luaInstallDir)
+else
+    lit = shared_library('Lit', 
+        litSrc, 
+        dependencies: litDeps, 
+        include_directories : incDirs,
+        install: true) 
+endif
 
 litDep = declare_dependency(link_with : lit, 
     dependencies: litDeps, 
     include_directories: incDirs)
 
-#@TODO: install the lua files that are part of lit
+

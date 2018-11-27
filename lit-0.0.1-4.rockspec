@@ -1,6 +1,9 @@
 package = "Lit"
-version = "0.0.1-3"
+version = "0.0.1-4"
 rockspec_format = "3.0"
+-- technically, windows should be supported, but I don't have a machine to
+-- test it right now.
+supported_platforms = {"macosx", "linux"}
 source = {
    url = "git://github.com/mokafolio/Lit"
 }
