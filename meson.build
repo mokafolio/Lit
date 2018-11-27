@@ -41,7 +41,7 @@ litDeps = [
     subproject('Stick').get_variable('stickDep'),
     subproject('Luke').get_variable('lukeDep'),
     subproject('Paper2').get_variable('paperDep'),
-    dependency('lua', version: '>=5.3')
+    dependency('Lua', version: '>=5.3')
 ]
 
 luaInstallDir = 'LuaScripts'
