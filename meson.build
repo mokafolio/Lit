@@ -58,7 +58,7 @@ if bLuaRocks
     # I.e. this: https://github.com/mesonbuild/meson/pull/3820
 
     #conform to the expected lua shared lib naming conventions
-    if host_machine.system() == 'darwin' and 
+    if host_machine.system() == 'darwin' 
         nameSuffix = 'so'
         namePrefix = ''
     endif
