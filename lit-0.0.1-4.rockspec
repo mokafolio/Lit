@@ -16,7 +16,7 @@ description = {
    license = "MIT"
 }
 dependencies = {
-   "Lua >= 5.3"
+   "lua >= 5.3"
 }
 -- technically since we are circumventing the luarocks build mechanisms for the most part,
 -- we don't need to do that at all. this is mainly useful to catch missing libraries before
