@@ -73,7 +73,7 @@ if bLuaRocks
         name_suffix: nameSuffix,
         install_dir: installDir,
         install: true)
-    install_subdir('LuaScripts', install_dir : luaInstallDir)
+    install_subdir('LuaScripts', install_dir : luaInstallDir, strip_directory: true)
 else
     lit = shared_library('Lit', 
         litSrc, 
