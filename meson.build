@@ -11,23 +11,23 @@ endif
 add_global_arguments('-Wno-missing-braces', language: 'cpp')
 
 litInc = [
-    'Lit/Lit.hpp'
+    'LitCore/LitCore.hpp'
 ]
-install_headers(litInc, subdir: 'Lit')
+install_headers(litInc, subdir: 'LitCore')
 
 litLibInc = [
-    'Lit/Libs/stb_image.h',
-    'Lit/Libs/stb_image_write.h'
+    'LitCore/Libs/stb_image.h',
+    'LitCore/Libs/stb_image_write.h'
 ]
-install_headers(litLibInc, subdir: 'Lit/Libs')
+install_headers(litLibInc, subdir: 'LitCore/Libs')
 
 litSrc = [
-    'Lit/Lit.cpp'
+    'LitCore/LitCore.cpp'
 ]
 
 incDirs = include_directories(
     '.', 
-    'Lit/Libs',
+    'LitCore/Libs',
     'subprojects/Crunch', 
     'subprojects/CrunchLuaSol', 
     'subprojects/Luke',

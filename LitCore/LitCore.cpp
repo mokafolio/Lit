@@ -1,4 +1,4 @@
-#include <Lit/Lit.hpp>
+#include <LitCore/LitCore.hpp>
 #include <LukeLuaSol/LukeLuaSol.hpp>
 #include <PaperLuaSol/PaperLuaSol.hpp>
 
@@ -10,7 +10,7 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb_image_write.h>
 
-namespace lit
+namespace litCore
 {
 
 using namespace stick;
@@ -45,7 +45,7 @@ static Error saveFrameWithSize(const char * _name, const Vec2f & _size)
     return saveFrame(_name, 0, 0, (UInt32)_size.x, (UInt32)_size.y);
 }
 
-void registerLit(sol::state_view _lua, sol::table _table)
+void registerLitCore(sol::state_view _lua, sol::table _table)
 {
     stbi_flip_vertically_on_write(1);
 
@@ -57,20 +57,20 @@ void registerLit(sol::state_view _lua, sol::table _table)
     _table.set_function("saveFrame", sol::overload(saveFrame, saveFrameWithSize));
 }
 
-void registerLit(sol::state_view _lua, const String & _namespace)
+void registerLitCore(sol::state_view _lua, const String & _namespace)
 {
-    registerLit(_lua, cls::ensureNamespaceTable(_lua, _lua.globals(), _namespace));
+    registerLitCore(_lua, cls::ensureNamespaceTable(_lua, _lua.globals(), _namespace));
 }
 
-} // namespace lit
+} // namespace litCore
 
 extern "C" {
 
-int luaopen_Lit(lua_State * L)
+int luaopen_LitCore(lua_State * L)
 {
     sol::state_view sv(L);
     sol::table tbl = sv.create_table();
-    lit::registerLit(sv, tbl);
+    litCore::registerLitCore(sv, tbl);
     tbl.push();
     return 1;
 }
