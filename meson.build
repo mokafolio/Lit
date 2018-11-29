@@ -27,14 +27,7 @@ litSrc = [
 
 incDirs = include_directories(
     '.', 
-    'LitCore/Libs',
-    'subprojects/Crunch', 
-    'subprojects/CrunchLuaSol', 
-    'subprojects/Luke',
-    'subprojects/LukeLuaSol',
-    'subprojects/Paper2',
-    'subprojects/PaperLuaSol',
-    'subprojects/Stick')
+    'LitCore/Libs')
 
 # meseon dependency function to find lua is not very consistent accross platforms yet, so
 # we need to do a lot of manual lifting for now
