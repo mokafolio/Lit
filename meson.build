@@ -36,12 +36,32 @@ incDirs = include_directories(
     'subprojects/PaperLuaSol',
     'subprojects/Stick')
 
+# meseon dependency function to find lua is not very consistent accross platforms yet, so
+# we need to do a lot of manual lifting for now
+if host_machine.system() == 'linux'
+    luaDep = dependency('lua', version: '>=5.3', required: false)
+    if not luaDep.found()
+        luaDep = dependency('lua5.3', required: false)
+        if not luaDep.found()
+            luaDep = dependency('lua-5.3', required: false)
+            if not luaDep.found()
+                # this is our last chance, so we require this to succeed
+                luaDep = dependency('lua53')
+            endif
+        endif
+    endif
+else
+    #this will work on osx...so nothing else to do
+    luaDep = dependency('lua', version: '>=5.3')
+endif
+
+
 litDeps = [
     dependency('threads'),
     subproject('Stick').get_variable('stickDep'),
     subproject('Luke').get_variable('lukeDep'),
     subproject('Paper2').get_variable('paperDep'),
-    dependency('lua', version: '>=5.3')
+    luaDep
 ]
 
 luaInstallDir = 'LuaScripts'
