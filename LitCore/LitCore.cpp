@@ -20,13 +20,13 @@ namespace pls = paperLuaSol;
 namespace lls = lukeLuaSol;
 namespace cls = crunchLuaSol;
 
-static void clearWindow(luke::Window & _window, const crunch::ColorRGBA & _color)
+STICK_API static void clearWindow(const crunch::ColorRGBA & _color)
 {
     glClearColor(_color.r, _color.g, _color.b, _color.a);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
-static Error saveFrame(const char * _name, UInt32 _x, UInt32 _y, UInt32 _w, UInt32 _h)
+STICK_API static Error saveFrame(const char * _name, UInt32 _x, UInt32 _y, UInt32 _w, UInt32 _h)
 {
     stick::DynamicArray<unsigned char> frameData;
     frameData.resize(_w * _h * 4);
@@ -40,7 +40,7 @@ static Error saveFrame(const char * _name, UInt32 _x, UInt32 _y, UInt32 _w, UInt
     return Error();
 }
 
-static Error saveFrameWithSize(const char * _name, const Vec2f & _size)
+STICK_API static Error saveFrameWithSize(const char * _name, const Vec2f & _size)
 {
     return saveFrame(_name, 0, 0, (UInt32)_size.x, (UInt32)_size.y);
 }
