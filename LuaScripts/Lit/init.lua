@@ -5,5 +5,6 @@ lit.promote = function(_self, _toTable)
     for k, v in pairs(_self) do
         toTbl[k] = v
     end
+    return _toTable
 end
 return lit
